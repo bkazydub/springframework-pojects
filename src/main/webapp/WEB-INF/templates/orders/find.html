@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div id="wrap">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+        <div class="main-container order-list">
+            <h2>Find Order By ID</h2>
+            <h3>View status of your purchase as guest.</h3>
+
+            <form th:action="@{/order/showOrderStatus}">
+                <div class="form-field">
+                    <label for="orderId" th:text="#{order.label.id}">[id]</label>
+                    <input id="orderId" type="text" name="orderId"/>
+                </div>
+                <div class="form-field">
+                    <label for="firstname" th:text="#{order.label.firstname}">[first]</label>
+                    <input id="firstname" type="text" name="firstname"/>
+                </div>
+                <div class="form-field">
+                    <label for="lastname" th:text="#{order.label.lastname}">[last]</label>
+                    <input id="lastname" type="text" name="lastname"/>
+                </div>
+                <div class="form-action">
+                    <button type="submit">Show</button>
+                </div>
+            </form>
+        </div>
+        <div id="push"></div>
+    </div>
+    <div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+
+</body>
+</html>

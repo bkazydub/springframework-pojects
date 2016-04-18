@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div id="wrap">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <div id="contentWrapper">
+    <div th:replace="fragments/controlBar :: leftControlBar"></div>
+
+        <div class="main-container">
+    <h2>About Page</h2>
+    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+    </div>
+    <div id="push"></div>
+    </div>
+    </div>
+    <div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+
+</body>
+</html>

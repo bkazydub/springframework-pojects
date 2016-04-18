@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div id="wrap">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+        <div id="contentWrapper">
+            <h2>Checkout</h2>
+            <div id="checkout">
+            <div th:if="${#lists.isEmpty(cart.contents)}" th:remove="tag">
+                <p>Your cart is empty.</p>
+                <br/>
+                <p><a class="right" th:href="@{/products}">Continue Shopping</a></p>
+            </div>
+
+            <div th:if="${not #lists.isEmpty(cart.contents)}" th:remove="tag">
+            <div id="checkout-customer">
+                <div th:if="${customer == null}" th:remove="tag">
+                <h3 th:text="#{checkout.label.new}">[header]</h3>
+
+                <form th:action="@{/order/checkout}" th:method="post" th:object="${newCheckoutForm}">
+                    <div class="alert alert-error" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="error : ${#fields.errors('*')}" th:text="${error}">[error]</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="firstname" th:text="#{customer.label.firstname}">[first]</label>
+                        <input id="firstname" type="text" th:field="*{customer.firstname}" />
+                    </div>
+                    <div class="form-field">
+                        <label for="lastname" th:text="#{customer.label.lastname}">[last]</label>
+                        <input id="lastname" type="text" th:field="*{customer.lastname}" />
+                    </div>
+                    <div class="form-field">
+                        <label for="street" th:text="#{address.label.street}">[street]</label>
+                        <input id="street" type="text" th:field="*{address.street}"/>
+                    </div>
+                    <div class="form-field">
+                        <label for="city" th:text="#{address.label.city}">[city]</label>
+                        <input id="city" type="text" th:field="*{address.city}" />
+                    </div>
+                    <div class="form-field">
+                        <label for="country" th:text="#{address.label.country}">[country]</label>
+                        <input id="country" type="text" th:field="*{address.country}"/>
+                    </div>
+                    <div class="form-field">
+                        <label for="email" th:text="#{customer.label.email}">[email]</label>
+                        <input id="email" type="text" th:field="*{customer.email}"/>
+                    </div>
+                    <div class="form-field">
+                        <label for="phone" th:text="#{customer.label.phoneNumber}">[phone]</label>
+                        <input id="phone" type="text" th:field="*{customer.phoneNumber}"/>
+                    </div>
+
+                    <button type="submit">Continue</button>
+                </form>
+                </div>
+
+                <div th:unless="${customer == null}" th:remove="tag">
+                    <h3 th:text="|Checkout as ${customer.lastname}, ${customer.firstname}|">[authenticated]</h3>
+
+                    <span>Shipping Address</span>
+
+                    <div th:each="ad : ${customer.addresses}" th:if="${adStat.count == 1}" th:remove="tag">
+                    <form id="existing-address-form" th:object="${address}" th:action="@{/order/accountCheckout}" method="post">
+                        <div class="alert alert-error" th:if="${#fields.hasErrors('*')}">
+                            <p th:each="error : ${#fields.errors('*')}" th:text="${error}">[error]</p>
+                        </div>
+                        <input type="hidden" name="id" th:value="${ad.id}"/>
+                        <div class="form-field">
+                            <label for="street" th:text="#{address.label.street}">[street]</label>
+                            <input id="street" type="text" name="street"
+                                  th:value="${ad.street}" readonly="readonly"/>
+                        </div>
+                        <div class="form-field">
+                            <label for="city" th:text="#{address.label.city}">[city]</label>
+                            <input id="city" type="text" name="city"
+                                  th:value="${ad.city}" readonly="readonly"/>
+                        </div>
+                        <div class="form-field">
+                            <label for="country" th:text="#{address.label.country}">[country]</label>
+                            <input id="country" type="text" name="country"
+                                  th:value="${ad.country}" readonly="readonly"/>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-info" type="submit">Continue</button>
+                        </div>
+                    </form>
+                    </div>
+
+                    <form id="new-address-form" th:if="false" th:object="${address}" th:action="@{/order/accountCheckout}" method="post">
+                        <div class="alert alert-error" th:if="${#fields.hasErrors('*')}">
+                            <p th:each="error : ${#fields.errors('*')}" th:text="${error}">[error]</p>
+                        </div>
+
+                        <div id="address-new">
+                            <div class="form-field">
+                                <label for="street" th:text="#{address.label.street}">[street]</label>
+                                <input id="street" type="text" th:field="${address.street}"/>
+                            </div>
+                            <div class="form-field">
+                                <label for="city" th:text="#{address.label.city}">[city]</label>
+                                <input id="city" type="text" th:field="${address.city}" />
+                            </div>
+                            <div class="form-field">
+                                <label for="country" th:text="#{address.label.country}">[country]</label>
+                                <input id="country" type="text" th:field="${address.country}"/>
+                            </div>
+                        </div>
+
+                        <button type="submit">Continue</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="checkout-delivery">
+                <h3>Delivery Options</h3>
+
+                <div class="checkout-line-items">
+                    <div class="line-item" th:each="item : ${cart.contents}">
+                        <div class="img-wrapper">
+                            <img class="small" th:src="@{'/resources/img/' + ${item.product.imgUrl}}"/>
+                        </div>
+
+                        <div class="short-description">
+                            <p><a th:href="@{/products/info/{id}(id=${item.product.id})}"
+                                  th:text="${item.product.name}">[title]</a></p>
+                            <p th:utext="${item.product.toString()}">[chars]</p>
+                        </div>
+
+                            <div class="delivery">
+                                <div class="delivery-type">
+                                    <ul class="delivery-option">
+                                        <li class="inline-form">
+                                            <label>
+                                                <span>
+                                                    <span class="radio">
+                                                        <input id="deliveryOption1" type="radio" name="deliveryOption"
+                                                           value="first" checked="checked"/></span>
+                                                </span>
+                                                <label for="deliveryOption1">
+                                                    <span class="title">Type 1</span>
+                                                        Blah-blah-blah
+                                                </label>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <ul class="delivery-option">
+                                        <li class="inline-form">
+                                            <label>
+                                                <span>
+                                                    <span class="radio">
+                                                    <input id="deliveryOption2" type="radio" name="deliveryOption"
+                                                           value="second"/></span>
+                                                </span>
+                                                <label for="deliveryOption2">
+                                                    <span class="title">Type 2</span>
+                                                    Blah-blah-blah
+                                                </label>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px;"></div>
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div id="checkout-summary">
+                <h3>Your Order</h3>
+                <p th:text="|Product Total: $${cart.total}|">[product]</p>
+                <p th:text="'Shipping Total: $0.00'">[shipping]</p>
+                <p th:text="|Total: ${cart.total}|">[total]</p>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="push"></div>
+    </div>
+    <div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+
+</body>
+</html>

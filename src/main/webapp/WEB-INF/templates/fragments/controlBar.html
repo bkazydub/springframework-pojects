@@ -1,0 +1,39 @@
+<html>
+<body>
+    <div th:fragment="leftControlBar" class="left controlBar">
+        <nav class="vertical">
+            <ul>
+                <li>
+                    <a>Products &amp; Services</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn btn btn-info">products</a>
+                    <ul>
+                        <li>
+                            <a class="btn btn-default" th:href="@{/products}" th:text="#{'navigation.label.all'}">[all]</a>
+                        </li>
+                        <li th:each="type : ${T(com.shop.springframework.domain.products.Product.Type).values()}">
+                            <a class="btn btn-default"
+                               th:href="@{/products(type=${type.label})}" th:text="#{'navigation.label.type.' + ${type}}">[type]</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn btn btn-info">Services</a>
+                    <ul>
+                        <li>
+                            <a class="btn btn-default" href="#">Not</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-default" href="#">yet</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-default" href="#">implemented</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<head th:fragment="headTag">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Online Shop</title>
+    <link th:href="@{/resources/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#cartModal').on('show.bs.modal', function (e) {
+                $.get('/shop/cart').done(function (response) {
+                    $('#cartModalBody').html(response);
+                });
+            })
+        });
+
+        $(document).ready(function () {
+            $('.addToCart-form').submit(function (event) {
+                event.preventDefault();
+                var url = $(this).attr('action');
+                var posting = $.post(url);
+                posting.done(function (response) {
+                    var $cart = $(response).find('#productNumber');
+                    $('#productNumber').text($cart.html()); // was #cart
+                    var $cartFooter = $(response).find('#cartModalFooter');
+                    $('#cartModalFooter').html($cartFooter.html());
+                });
+            })
+        });
+
+        $(document).ready(function () {
+            $('.removeFromCart-form').submit(function (event) {
+                event.preventDefault();
+                var url = $(this).attr('action');
+                var posting = $.post(url);
+                posting.done(function (response) {
+                    var $cart = $(response).find('#cartContent');
+                    $('#cartContent').html($cart.html());
+                });
+            })
+        });
+    </script>
+</head>

@@ -1,0 +1,394 @@
+/* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -240px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer,
+      #admin-footer {
+        height: 240px;
+      }
+      #footer,
+      #admin-footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+ul {
+    list-style: none;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.right {
+    float: right;
+}
+
+.navbar-horizontal {
+    margin-bottom: 50px;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.controlBar {
+    /*position: relative;
+    left: 0;*/
+    width: 15%;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.left {
+    float: left;
+}
+
+li .left {
+    float: left;
+}
+
+li .right {
+    float: right;
+}
+
+li a {
+    display: block;
+    padding: 14px 16px;
+    background-color: black;
+    color: white;
+    margin: 0;
+    text-decoration: none;
+}
+
+li span {
+    color: green;
+}
+
+li a.active {
+    background-color: green;
+}
+
+li a:hover:not(.active) {
+    background-color: black;
+    color: white;
+}
+
+.dropright-content {
+    display: none;
+    /*position: absolute;*/
+    /*left: 0;*/
+    min-width: 160px;
+}
+
+.dropbtn:hover .dropright-content {
+    display: block;
+}
+
+tr.odd {
+    background-color: lightgray;
+}
+
+tr th {
+    background-color: black;
+    color: white;
+}
+
+.alert {
+    border-radius: 10px;
+    width: 50%;
+    padding: 20px;
+    margin-bottom: 10px; /*<--------------------------- attention*/
+}
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+.alert-info {
+    background: #66ff66;
+    color: #33cc33;
+    border-color: #cccc00;
+}
+
+.field-error input {
+    box-shadow: 0 0 3px #b94a48;
+}
+
+.field-error label {
+    color: #b94a48;
+}
+
+.img-wrapper {
+    padding: 10px;
+}
+
+img.medium {
+    width: 200px;
+    height: 180px;
+    border-radius: 5px 5px 0 0;
+    margin: auto;
+}
+
+a.price {
+    display: block;
+    background: beige;
+    border-radius: 2px;
+    padding: 5px;
+    min-width: 40px;
+    max-width: 60px;
+    color: #b94a48;
+}
+
+a.title {
+    font-size: 13px;
+    text-align: center;
+}
+
+.main-container {
+    position: relative;
+    display: block;
+    left: 15%;
+    width: 80%;
+    border: 2px solid black;
+}
+
+.main-container:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.product-container {
+    position: relative;
+    float: left;
+    left:0;
+    height: 320px;
+    width: 25%;
+    /*margin: 5px;*/
+    border: 2px solid magenta;
+}
+
+.product-container-inner {
+    /*position: absolute;*/
+    position: relative;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 280px;
+    padding: 10px;
+}
+
+.product-container-inner .upper-part {
+    width: 100%;
+    height: auto;
+}
+
+.product-container-inner:hover {
+    z-index: 100;
+    overflow: visible;
+    height: auto;
+    width: 100%;
+    box-shadow: 0 0 5px red;
+    background: beige;
+}
+
+.resultsContainer {
+    /*height: auto;*/
+    overflow: hidden;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid blueviolet;
+}
+
+.productContainer {
+    position: relative;
+    overflow: hidden;
+    height: auto;
+    border: 2px solid darkgreen;
+}
+
+.productContainer .img-wrapper,
+.description, .actions {
+    padding: 10px;
+}
+
+.productContainer .img-wrapper {
+    width: 20%;
+    float: left;
+    border: 2px solid crimson;
+}
+
+.productContainer .description {
+    width: 50%;
+    float: left;
+    border: 2px solid coral;
+}
+
+.productContainer .actions {
+    min-width: 30%;
+    float: left;
+    border: 2px solid chartreuse;
+}
+
+img.small {
+    width: auto;
+}
+
+.product-info-container {
+    position: relative;
+    left: 20%;
+    width: 70%;
+}
+
+.product-info-container-inner {
+    padding: 20px;
+    border: 2px solid black;
+}
+
+.info-top {
+    display: inline-block;
+    border: 2px solid aqua;
+    width: 100%;
+}
+
+.info-top .img-wrapper {
+    float: left;
+    width: 60%;
+}
+
+.soft-info {
+    float: right;
+    width: 25%;
+    height: 25%;
+    margin: auto;
+    border: 2px solid red;
+    padding: 25px
+}
+
+.img-big {
+    width: 100%; /*to fit into img-wrapper*/
+    border-radius: 5px;
+}
+
+.info-bottom-inner {
+    padding: 20px;
+    border: 3px solid black;
+}
+
+.available {
+    color: #33cc33;
+}
+
+.not-available {
+    color: #b94a48;
+    font-style: italic;
+}
+
+dl.detail-chars-l {
+	position: relative;
+	border-bottom: 1px solid #999;
+    width: 80%;
+    margin: auto;
+}
+
+.detail-chars-l dt {
+	clear: left;
+	float: left;
+	padding: 5px;
+	border-top: 1px solid #999;
+	font-weight: bold;
+}
+
+.detail-chars-l dd {
+	margin: 0;
+	padding: 5px;
+	border-top: 1px solid #999;
+}
+
+.hidden {
+    display: none;
+}
+
+.lineItem {
+    border: 2px solid magenta;
+    display: block;
+}
+
+.cartContainer {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    border: 2px solid aqua;
+}
+
+.lineItem .img-wrapper {
+    width: 30%;
+    height: 30%;
+    float: left;
+    border: 2px dashed black;
+}
+
+img.small {
+    width: 100%;
+}
+
+.itemInfoBox {
+    float: left;
+    width: 50%;
+    border: 2px solid red;
+}
+
+.shortInfo {
+    width: 90%;
+}
+
+.modal .modal-dialog {
+    width: 80%;
+}
+
+.main-container .product-type {
+    width: 33%;
+    border: 2px dotted cyan;
+    display: inline-block;
+    float: left;
+    position: relative;
+    /*left: 10%;*/
+}
+
+/*
+.main-container .third {
+    !*float: both;*!
+    margin: auto;
+    border: 2px dotted yellow;
+}*/

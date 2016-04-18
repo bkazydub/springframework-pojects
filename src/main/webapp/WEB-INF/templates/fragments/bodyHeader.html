@@ -1,0 +1,67 @@
+
+    <div id="header" th:fragment="bodyHeader" class="horizontal">
+
+    <div id="headerBar">
+        <div id="headerLogo">
+            <a th:href="@{/}" title="e-commerce"><img th:src="@{/resources/img/e-shopper.gif}" alt="logo goes here" /></a>
+        </div>
+
+        <nav id="headerNav" class="horizontal">
+        <ul class="navTop">
+            <li class="navTopIt">
+                <a th:href="@{/about}" th:classappend="${#httpServletRequest.servletPath == '/about'} ? 'active'"
+                   th:text="#{navigation.label.about}">[about]</a>
+            </li>
+            <li class="navTopIt">
+                <a href="#" th:classappend="${#httpServletRequest.servletPath == '/contacts'} ? 'active'"
+                   th:text="#{navigation.label.contacts}">[contacts]</a>
+            </li>
+            <li class="navTopIt">
+                <a href="#" th:classappend="${#httpServletRequest.servletPath == 'terms'} ? 'active'"
+                   th:text="#{navigation.label.terms}">[terms]</a>
+            </li>
+        </ul>
+        </nav>
+
+        <div id="headerSignin">
+            <span th:if="${#httpServletRequest.remoteUser == null}">Welcome! Please <a th:href="@{/signup}">create an account</a> or <a th:href="@{/signin}">sign in</a>.</span>
+            <span th:if="${#httpServletRequest.isUserInRole('USER')}">Welcome, <span sec:authentication="principal.account.customer.firstname" th:remove="tag">[name]</span>. <a th:href="@{/logout}">Log out</a></span>
+            <span th:if="${#httpServletRequest.isUserInRole('ADMIN')}" style="color:red;">Logged as admin. <a th:href="@{/logout}">Log out</a></span>
+            <a sec:authorize="isAuthenticated()" th:href="@{/order/history}" title="Shows your ordering history">Order Status</a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/order/findOrder}" title="View order status">Order Status</a>
+        </div>
+
+        <br/>
+
+        <div id="headerSearch">
+            <form th:action="@{/products/find}" method="get">
+                <span><input type="text" size="30" th:placeholder="#{placeholder.search}" name="query"/><button style="margin-left:5px;" type="submit" class="btn btn-info">find</button></span>
+            </form>
+        </div>
+
+        <div id="headerCart">
+            <button id="cart" class="btn btn-default btn-large" data-toggle="modal" data-target="#cartModal">
+                <img class="cart" th:src="@{/resources/img/cart-icon.png}"/>
+                <span id="productNumber" th:text="${cart.numberOfProducts != 0} ? |${cart.numberOfProducts} item(s)| : ''">[cart]</span></button>
+        </div>
+        </div>
+
+        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div id="cartContent" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Cart</h4>
+                    </div>
+                    <div class="modal-body" id="cartModalBody">Lorem ipsum</div>
+                    <div id="cartModalFooter" class="modal-footer">
+                        <button type="button" class="btn btn-default left" data-dismiss="modal">Close</button>
+                        <form th:action="@{${#httpServletRequest.userPrincipal == null} ? '/order/selectMethod' : '/order/accountCheckout'}">
+                            <button type="submit" class="btn btn-success" th:disabled="${cart.numberOfProducts == 0}">Checkout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    </div>

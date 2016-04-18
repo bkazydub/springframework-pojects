@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+    <!--<div th:replace="fragments/controlBar :: leftControlBar"></div>-->
+
+    <div class="errors" style="display:block;background:red;width:60%;border:1px solid black;">
+        <p th:if="${param.error != null}" th:text="Invalid username and/or password.">[error]</p>
+    </div>
+    <h2>Login form, nothing more</h2>
+    <form th:action="@{/login}" method="post">
+        <p>Username: <input id="username" type="text" name="username"/></p>
+        <p>Password: <input id="password" type="password" name="password"/></p>
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div id="wrap">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+        <div id="contentWrapper">
+            <div id="checkout-select-method">
+                <h2 th:utext="#{order.selectCheckoutMethod.title}">[method]</h2>
+
+                <ul class="checkout-option">
+                    <li class="inline-form">
+                        <label>
+                            <span>
+                                <span class="radio"><input id="guestCustomer" type="radio" name="checkoutoption" value="new" checked="checked"/></span>
+                            </span>
+                            <label for="guestCustomer">
+                                <span class="title">
+                                    Guest
+                                </span>
+                                    Registration is not required.
+                            </label>
+                        </label>
+                    </li>
+                </ul>
+
+                <ul class="checkout-option">
+                    <li class="inline-form">
+                        <label>
+                            <span>
+                                <span class="radio"><input id="returningCustomer" type="radio" name="checkoutoption" value="returning"/></span>
+                            </span>
+                            <label for="returningCustomer">
+                                <span class="title">
+                                    Member
+                                </span>
+                                    If you already have an account makes things faster.
+                            </label>
+                        </label>
+                    </li>
+                </ul>
+                <form method="post" th:action="@{/signin}">
+                        <div class="form-field">
+                            <label for="inputEmail">Email</label>
+                            <input id="inputEmail" type="text" placeholder="Email" disabled="true" name="j_username" />
+                        </div>
+                        <div class="form-field">
+                            <lable for="inputPassword">Password</lable>
+                            <input id="inputPassword" type="password" placeholder="password" disabled="true" name="j_password" />
+                        </div>
+                        <!--<div class="form-actions">
+                            <button type="submit" class="btn btn-default">Sign In</button>
+                        </div>-->
+                </form>
+                <br/>
+                <a class="btn btn-info" th:href="@{/order/checkout}">Continue</a>
+            </div>
+            <div id="push"></div>
+        </div>
+
+        <div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+
+    </div>
+</body>
+</html>

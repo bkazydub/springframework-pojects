@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div th:include="fragments/bodyHeader :: bodyHeader"></div>
+
+    <h2>Personal Data</h2>
+    <form th:action="@{/products/cart/checkout}" th:object="${customer}" method="post">
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
+            <p th:each="error : ${#fields.errors('*')}" th:text="${error}">[error]</p>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('firstname')} ? 'field-error'">
+            <label for="firstname">FirstName</label>
+                <input type="text" th:field="*{firstname}" />
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('lastname')} ? 'field-error'">
+            <label for="lastname">Last Name</label>
+                <input type="text" th:field="*{lastname}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('street')} ? 'field-error'">
+            <label for="street">Street</label>
+                <input type="text" th:field="*{street}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('city')} ? 'field-error'">
+            <label for="city">city</label>
+                <input type="text" th:field="*{city}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('country')} ? 'field-error'">
+            <label for="country">Country</label>
+                <input type="text" th:field="*{country}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('email')} ? 'field-error'">
+            <label for="email">Email</label>
+                <input type="text" th:field="*{email}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('phoneNumber')} ? 'field-error'">
+            <label for="phone">Phone</label>
+                <input type="text" th:field="*{phoneNumber}"/>
+        </div>
+        <div class="form-actions">
+            <button>Checkout!</button>
+        </div>
+    </form>
+</body>
+</html>

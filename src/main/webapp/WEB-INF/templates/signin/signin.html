@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <div id="contentWrapper">
+        <div th:replace="fragments/controlBar :: leftControlBar"></div>
+    <p th:if="${loginError}" class="error">Wrong Credentials.</p>
+
+        <div class="form-wrapper">
+
+    <form class="form-signin" method="post" th:action="@{/signin}">
+        <th:block th:if="${param.error != null}">
+            <div class="alert-error alert">
+                <p>Wrong credentials. Please, try again.</p>
+            </div>
+        </th:block>
+        <fieldset>
+            <legend>Sign In</legend>
+            <div class="form-field">
+                <label for="inputEmail">Email</label>
+                <input id="inputEmail" type="text" placeholder="Email" name="j_username" />
+            </div>
+            <div class="form-field">
+                <lable for="inputPassword">Password</lable>
+                <input id="inputPassword" type="password" placeholder="password" name="j_password" />
+            </div>
+            <div class="form-field">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="_spring_security_remember_me" /> Remember me
+                    </label>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="submit" class="btn btn-info">Sign In</button>
+            </div>
+            <div class="clear"></div>
+            <div class="form-group">
+                <div>
+                    <p>Don't have an account yet? <a th:href="@{/signup}">Sign Up</a></p>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+            </div>
+
+        <div id="push"></div>
+    </div>
+    <div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+</body>
+</html>

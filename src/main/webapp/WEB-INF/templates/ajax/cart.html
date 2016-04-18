@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+    <div class="shoppingCart" th:fragment="cart">
+        <div class="cart-container">
+            <div class="line-item" th:each="item : ${cart.contents}">
+                <div class="img-wrapper">
+                    <img class="small" th:src="@{'/resources/img/' + ${item.product.imgUrl} ?: 'demo.jpg'}"/>
+                </div>
+                <div class="line-item-attributes">
+                    <span class="title" th:text="${item.product.name}">[title]</span>
+                    <p th:utext="${item.product}">[info]</p>
+                </div>
+                <div class="line-item-info">
+                    <a class="price" th:text="|price: $${item.product.price}|">[price]</a>
+                    <p th:text="|quantity: ${item.quantity}|">[quantity]</p>
+                    <p class="cart-total" th:text="|Subtotal: $${item.total}|">[total]</p>
+                    <form class="removeFromCart-form" th:action="@{/products/removeFromCart/{productId}(productId=${item.product.id})}" method="post">
+                        <!--todo: make remove work properly-->
+                        <button type="submit" th:text="#{label.removeFromCart}" title="doesn't work properly. Yet.">[remove]</button>
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <p th:unless="${#lists.isEmpty(cart.contents)}" class="cart-total right" th:text="|Total: ${cart.total}|"></p>
+            <div th:if="${#lists.isEmpty(cart.contents)}">
+                <p style="font-size: 3em; font-weight: bold">Your cart is empty...</p>
+                <p><a class="right" th:href="@{/products}">Continue shopping</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

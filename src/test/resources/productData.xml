@@ -1,0 +1,16 @@
+<dataset>
+    <product id="3"
+             type="LAPTOP"
+             name="laptopTitle"
+             description="laptopDescription"
+             img_url="laptop.jpg"
+             price="450"
+             inventory="2"/>
+    <product id="4"
+             type="PHONE"
+             name="phoneTitle"
+             description="phoneDescription"
+             img_url="phone.jpg"
+             price="333"
+             inventory="125"/>
+</dataset>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <h2>Test page</h2>
+    <div id="divIWontTouch">This divcontains static data. Is not of interest. <span th:text="${value}">[value]</span></div>
+
+    <div id="justDiv" th:text="${value}">[value]</div>
+
+    <form action="#" id="updateForm">
+        <button type="button" class="just-btn">Render '#justDiv'</button></form>
+
+    <script>
+        $('.just-btn').click(function () {
+            $.ajax({
+                url: 'ajaxRenderTest/1',
+                type: 'POST',
+                success: function (response) {
+                    alert(response);
+                    var $justDiv = $(response).filter('#justDiv');
+                    alert($justDiv.html());
+                    $('#justDiv').text($justDiv.html());
+                },
+                error: function () {
+                    alert('error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

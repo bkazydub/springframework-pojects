@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+    <div id="footer" class="footer" th:fragment="footer">
+        &copy; 2016 This is a footer! :)
+        <nav class="horizontal">
+            <ul class="navTop">
+                <li class="navTopIt">
+                    <a th:href="@{/about}" th:classappend="${#httpServletRequest.servletPath == '/about'} ? 'active'"
+                       th:text="#{navigation.label.about}">[about]</a>
+                </li>
+                <li class="navTopIt">
+                    <a href="#" th:classappend="${#httpServletRequest.servletPath == '/contacts'} ? 'active'"
+                       th:text="#{navigation.label.contacts}">[contacts]</a>
+                </li>
+                <li class="navTopIt">
+                    <a href="#" th:classappend="${#httpServletRequest.servletPath == 'terms'} ? 'active'"
+                       th:text="#{navigation.label.terms}">[terms]</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div id="admin-footer" class="footer-admin" th:fragment="footer-admin">
+        <a th:href="@{/products/db/new}">Add Product</a>
+    </div>
+</body>
+</html>

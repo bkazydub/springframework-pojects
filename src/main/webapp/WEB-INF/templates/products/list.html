@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div id="wrap">
+
+		<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+	<div id="contentWrapper">
+<div th:replace="fragments/controlBar :: leftControlBar"></div>
+
+<div class="main-container">
+	<div th:if="${message}" class="alert alert-info">
+		<p th:text="${message}">[info]</p>
+	</div>
+
+	<div id="products" class="grid">
+	<div class="product-container grid-item" th:unless="${#lists.isEmpty(products)}"
+			th:each="product : ${products}">
+		<div class="product-container-inner middle">
+			<div class="upper-part">
+				<div class="img-wrapper">
+					<a th:href="@{/products/info/{id}(id=${product.id})}">
+						<img class="medium" th:src="@{'/resources/img/' + ${product.imgUrl} ?: 'none.png'}" alt="product image"/></a>
+				</div>
+
+				<div class="upper-info">
+					<span><a class="price" th:text="${product.price}">[price]</a></span>
+					<span>
+						<form th:action="@{/products/addToCart/{id}(id=${product.id})}"
+							  method="post" class="addToCart-form" style="float:right;">
+							<button type="submit" class="btn btn-success" th:text="#{label.addToCart}" th:title="${product.available ? 'in stock' : 'out of stock'}"
+									th:disabled="${not product.available}">[buy]</button>
+						</form>
+					</span>
+				</div>
+				<p><a class="title" th:href="@{/products/info/{id}(id=${product.id})}"
+						th:text="${product.name}">[title]</a></p>
+			</div>
+			<div class="lower-part">
+				<div class="lower-info">
+					<div class="short-detail">
+						<p class="bold" th:utext="${product}">[detail]</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		</div>
+	</div>
+		<div id="push"></div>
+	</div>
+</div>
+<div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div id="contentWrapper">
+<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+<div class="main-container">
+    <h2><span th:text="${product.new} ? 'New' : 'Edit'" th:remove="tag">New </span> Product</h2>
+
+    <form th:action="@{${#httpServletRequest.servletPath}}" th:object="${product}"
+          th:method="${product.new} ? 'post' : 'put'" id="create-form">
+        <!--todo alert to be added later (through fragment!)-->
+
+        <div class="form-field" th:classappend="${#fields.hasErrors('name')} ? 'field-error'">
+            <label for="name" th:text="#{product.label.name}">[name]</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('description')} ? 'field-error'">
+            <label for="description" th:text="#{product.label.description}">[description]</label>
+            <textarea id="description" th:field="*{description}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('type')} ? 'field-error'">
+            <label for="type" th:text="#{product.label.type}">[type]</label>
+            <select th:disabled="${not product.new}" id="type" th:field="*{type}">
+                <option value="NONE" th:text="#{select.option.default}">[default]</option>
+                <option th:each="type : ${T(com.shop.springframework.domain.products.Product.Type).values()}"
+                        th:text="${{type.label}}"
+                        th:value="${type}">[option]</option>
+            </select>
+            <input type="hidden" th:field="*{type}" th:value="${product.type}"/>
+        </div>
+
+        <div id="characteristics"></div>
+
+        <div class="form-field"
+             th:unless="${product.new}"
+             th:each="characteristic : *{technicalCharacteristics}">
+            <label th:for="'tech-' + ${characteristicStat.count}" th:text="#{${characteristic.key}}">[key]</label>
+            <input th:id="'tech-' + ${characteristicStat.count}" type="text"
+                   th:field="*{technicalCharacteristics[__${characteristic.key}__]}" required="required"/>
+        </div>
+
+        <div class="form-field" th:classappend="${#fields.hasErrors('imgUrl')} ? 'field-error'">
+            <label for="imgUrl" th:text="#{product.label.imgUrl}">[image]</label>
+            <input id="imgUrl" type="text" th:field="*{imgUrl}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('price')} ? 'field-error'">
+            <label for="price" th:text="#{product.label.price}">[price]</label>
+            <input id="price" type="text" th:field="*{price}"/>
+        </div>
+        <div class="form-field" th:classappend="${#fields.hasErrors('inventory')} ? 'field-error'">
+            <label for="name" th:text="#{product.label.inventory}">[inventory]</label>
+            <input id="name" type="text" th:field="*{inventory}"/>
+        </div>
+        <div class="form-actions">
+            <button type="submit" th:text="${product.new} ? #{button.label.create} : #{button.label.update}">[action]</button>
+        </div>
+    </form>
+</div>
+</div>
+<script>
+    $('#type').change( function() {
+        var type = $(this).find('option:selected').val();
+        var url = '/shop/products/fetchTypeParams/' + type;
+        $.post(url, function (response) {
+            $('#characteristics').html(response);
+        });
+    });
+</script>
+
+<br/>
+    <a th:href="@{/products}">Products</a>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/headTag :: headTag">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div id="wrap">
+        <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+        <div id="contentWrapper">
+
+            <div class="main-container order-list">
+                <h2 sec:authorize="isAuthenticated()">Your Order History</h2>
+                <div th:if="${#lists.isEmpty(orders)}" class="unit-container">
+                    <p>Wrong entry! Please try again.</p>
+                </div>
+                <div th:if="${orders.size() == 1 or #httpServletRequest.remoteUser != null}" class="unit-container" th:each="order : ${orders}">
+                    <span class="title" th:text="|Order ID: ${order.id}|"></span>
+                    <div class="order-items">
+                        <p th:each="item : ${order.items}">
+                            <a th:href="@{/products/info/{id}(id=${item.product.id})}" th:utext="${item.product.name}">[title]</a>
+                            <span th:utext="|&times;${item.quantity}|">[quantity]</span>
+                        </p>
+                    </div>
+                    <div class="order-info">
+                        <span th:text="|Placed: ${order.placed}|">[placed]</span>
+                        <br/>
+                        <span th:utext="|Received: ${order.received ?: 'Not yet...'}|">[received]</span>
+                        <br/>
+                        <span th:text="|Status: ${order.status}|">[status]</span>
+                    </div>
+
+                    <span class="right" th:text="|Total: ${order.total}|">[total]</span>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="push"></div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: ${#httpServletRequest.isUserInRole('ROLE_ADMIN')} ? 'footer-admin' : 'footer'"></div>
+
+</body>
+</html>

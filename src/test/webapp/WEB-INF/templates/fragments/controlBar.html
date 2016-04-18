@@ -1,0 +1,18 @@
+<html>
+<body>
+    <div th:fragment="leftControlBar" class="left controlBar">
+        <div class="navbar-vertical">
+            <ul>
+                <li><a th:href="@{/}" th:text="#{navigation.label.main}">[main]</a></li>
+                <li class="dropright">
+                    <a href="#" class="dropbtn">products</a>
+                    <div class="dropright-content">
+                        <a th:each="type : ${T(com.shop.springframework.domain.products.Product.Type).values()}"
+                           th:href="@{/products(type=${type})}" th:text="#{'navigation.label.type.' + ${type}}">[type]</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

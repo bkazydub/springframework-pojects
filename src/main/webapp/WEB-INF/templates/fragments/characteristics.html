@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="characteristics">
+        <div class="form-field" th:if="${product.new}"
+             th:each="characteristic : ${techArray}" th:object="${product}">
+            <label th:for="'tech-' + ${characteristicStat.count}" th:text="#{${characteristic}}">[key]</label>
+            <input th:id="'tech-' + ${characteristicStat.count}" type="text"
+                   th:field="*{technicalCharacteristics[__${characteristic}__]}" required="required"/>
+        </div>
+    </div>
+</body>
+</html>
