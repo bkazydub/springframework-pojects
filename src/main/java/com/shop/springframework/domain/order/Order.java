@@ -30,6 +30,7 @@ public class Order extends BaseEntity {
     private Customer customer;
 
     @ManyToOne(cascade = {MERGE, REMOVE})
+    @JoinColumn(name = "address_id")
     private Address shippingAddress;
 
     @NotEmpty

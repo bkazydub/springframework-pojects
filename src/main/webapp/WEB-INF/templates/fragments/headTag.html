@@ -21,8 +21,8 @@
                 var url = $(this).attr('action');
                 var posting = $.post(url);
                 posting.done(function (response) {
-                    var $cart = $(response).find('#productNumber');
-                    $('#productNumber').text($cart.html()); // was #cart
+                    var $cart = $(response).find('#headerCart');
+                    $('#headerCart').html($cart.html());
                     var $cartFooter = $(response).find('#cartModalFooter');
                     $('#cartModalFooter').html($cartFooter.html());
                 });

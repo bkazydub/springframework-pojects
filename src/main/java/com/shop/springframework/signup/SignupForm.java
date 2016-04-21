@@ -6,11 +6,12 @@ import com.shop.springframework.domain.account.Account;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
-/*Acts as a DTO*/
 public class SignupForm {
 
     @NotBlank
+    @Size(min = 6, max = 32)
     private String password;
 
     @Valid

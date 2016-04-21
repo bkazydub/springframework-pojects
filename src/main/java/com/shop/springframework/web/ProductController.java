@@ -87,7 +87,7 @@ public class ProductController {
         if (query == null || query.isEmpty()) {
             model.addAttribute("shortQuery");
         } else {
-            model.addAttribute("results", repository.findByNameLike("%" + query + "%"));
+            model.addAttribute("results", repository.findByNameLikeIgnoreCase("%" + query + "%"));
         }
         return PRODUCT_FIND_RESULT_VIEW;
     }

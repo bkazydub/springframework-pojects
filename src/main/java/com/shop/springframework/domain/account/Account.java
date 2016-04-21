@@ -24,13 +24,14 @@ public class Account extends BaseEntity {
     @Column(unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     private String role = ROLE_USER;
 
     @NotNull
     @OneToOne(cascade = PERSIST)
-    @JoinColumn(name = "customer_id"/*, nullable = false*/)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     protected Account() {
@@ -71,7 +72,6 @@ public class Account extends BaseEntity {
     }
 
     public boolean isAdmin() {
-        // not 'safe' comparison because role shouldn't be null.
         return this.role.equals(ROLE_ADMIN);
     }
 

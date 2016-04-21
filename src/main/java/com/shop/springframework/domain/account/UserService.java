@@ -55,7 +55,6 @@ public class UserService implements UserDetailsService {
     }
 
     private Authentication authenticate(Account account) {
-        System.out.println("authenticate is called");
         return new UsernamePasswordAuthenticationToken(createUser(account), null, account.getAuthorities());
     }
 

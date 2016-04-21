@@ -13,7 +13,7 @@
             <div class="main-container order-list">
                 <h2 sec:authorize="isAuthenticated()">Your Order History</h2>
                 <div th:if="${#lists.isEmpty(orders)}" class="unit-container">
-                    <p>Wrong entry! Please try again.</p>
+                    <p th:text="${#authorization.expression('isAuthenticated()')} ? 'No orders yet...' : 'Wrong entry! Please try again.'">[order]</p>
                 </div>
                 <div th:if="${orders.size() == 1 or #httpServletRequest.remoteUser != null}" class="unit-container" th:each="order : ${orders}">
                     <span class="title" th:text="|Order ID: ${order.id}|"></span>

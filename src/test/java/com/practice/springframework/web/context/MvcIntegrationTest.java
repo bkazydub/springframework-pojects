@@ -4,7 +4,6 @@ import com.shop.springframework.config.DataAccessConfig;
 import com.shop.springframework.config.DataSourceConfig;
 import com.shop.springframework.config.WebMvcConfig;
 import com.shop.springframework.domain.products.Product;
-import com.shop.springframework.domain.products.ProductUtil;
 import com.shop.springframework.web.MainController;
 import com.shop.springframework.web.ProductController;
 import org.junit.After;

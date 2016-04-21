@@ -34,6 +34,8 @@ public class DataSourceConfig {
     @Profile("default")
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(HSQL)
+                .addScript(env.getRequiredProperty("jdbc.initLocation"))
+                .addScript(env.getRequiredProperty("jdbc.dataLocation"))
                 .ignoreFailedDrops(true)
                 .build();
     }
@@ -42,6 +44,7 @@ public class DataSourceConfig {
     @Profile("test")
     public DataSource testDataSource() {
         return new EmbeddedDatabaseBuilder()
+        			 .addScript(env.getRequiredProperty("jdbc.initLocation"))
                 .setType(EmbeddedDatabaseType.HSQL)
                 .ignoreFailedDrops(true)
                 .build();

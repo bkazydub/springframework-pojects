@@ -37,10 +37,6 @@ public class LineItem extends BaseEntity {
     }
 
     public LineItem(Product product, int quantity) {
-
-        Assert.notNull(product, "The given product must not be null!");
-        Assert.isTrue(quantity > 0, "The quantity of products to be bought must be greater than 0!");
-
         this.product = product;
         this.quantity = quantity;
         this.price = product.getPrice();

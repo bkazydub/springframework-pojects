@@ -7,11 +7,11 @@ import javax.persistence.*;
 @Entity
 public class Address extends BaseEntity {
 
-    @NotBlank @Column(nullable = false) protected String street;
+    @NotBlank @Column(nullable = false) private String street;
 
-    @NotBlank @Column(nullable = false) protected String city;
+    @NotBlank @Column(nullable = false) private String city;
 
-    @NotBlank @Column(nullable = false) protected String country;
+    @NotBlank @Column(nullable = false) private String country;
 
     //@NotNull
     @ManyToOne

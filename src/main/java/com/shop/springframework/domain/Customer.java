@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,12 +22,12 @@ import static javax.persistence.CascadeType.REMOVE;
 @Entity
 public class Customer extends BaseEntity {
 
-    @NotBlank
     @Column(name = "first_name")
+    @Size(min = 2, max = 40)
     private String firstname;
 
-    @NotBlank
     @Column(name = "last_name")
+    @Size(min = 2, max = 40)
     private String lastname;
 
     @OneToOne(mappedBy = "customer")
@@ -41,8 +42,9 @@ public class Customer extends BaseEntity {
 
     @Email protected String email;
 
-    @NotBlank
     @Pattern(regexp = "\\d{10}")
+    @Column(name = "phone_number")
+    @Size(min = 10, max = 10)
     protected String phoneNumber;
 
     @Transient

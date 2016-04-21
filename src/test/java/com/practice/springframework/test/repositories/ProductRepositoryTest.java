@@ -79,7 +79,7 @@ public class ProductRepositoryTest {
     @Test
     public void findByNameLike_TitleOfFirstProductEntryContainsGivenNameTerm_ShouldReturnOneProductEntry() {
         assertNumProducts(2);
-        List<Product> results = (List<Product>) repository.findByNameLike("laptop%");
+        List<Product> results = (List<Product>) repository.findByNameLikeIgnoreCase("laptop%");
         assertThat(results).hasSize(1);
     }
 
@@ -117,19 +117,19 @@ public class ProductRepositoryTest {
 
     @Test
     public void updateProduct_ShouldUpdateProductCorrectly() {
-        Product phone = repository.findByNameLike("phoneDefault").iterator().next();
+        Product phone = repository.findByNameLikeIgnoreCase("phoneDefault").iterator().next();
         assertThat(phone).isNotNull();
 
         phone.setName("Nokia Lumia");
         phone = repository.save(phone);
 
-        Product updated = repository.findByNameLike("Nokia%").iterator().next();
+        Product updated = repository.findByNameLikeIgnoreCase("Nokia%").iterator().next();
         assertThat(updated).isEqualTo(phone);
     }
 
     @Test
     public void findMany() {
-        Product product = ((List<Product>) repository.findByNameLike("%")).get(0);
+        Product product = ((List<Product>) repository.findByNameLikeIgnoreCase("%")).get(0);
         assertThat(product).isNotNull();
         assertThat(product.getId()).isEqualTo(100L);
     }

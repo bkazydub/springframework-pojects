@@ -10,7 +10,7 @@ import java.util.Collection;
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
     // TODO findDistinctByNameOrDescriptionLike
-    Collection<Product> findByNameLike(String name);
+    Collection<Product> findByNameLikeIgnoreCase(String name);
 
     Collection<Product> findByType(Product.Type type);
 }

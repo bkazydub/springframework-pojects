@@ -5,9 +5,6 @@ import com.shop.springframework.domain.Customer;
 
 import javax.validation.Valid;
 
-/**
- * For new Customer.
- */
 public class NewCheckoutForm {
 
     @Valid

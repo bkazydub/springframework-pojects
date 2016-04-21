@@ -18,7 +18,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @Configuration
 @EnableWebMvc
 @EnableSpringDataWebSupport
-@ComponentScan("com.shop.springframework") // all packages to scan!
+@ComponentScan("com.shop.springframework")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     public static final String TEMPLATE_PREFIX = "/WEB-INF/templates/";

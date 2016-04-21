@@ -4,13 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -41,6 +37,9 @@ public class DataAccessConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(HSQL);
         vendorAdapter.setShowSql(true);
+        // todo: pay attention!
+        //vendorAdapter.setGenerateDdl(true);
+
 
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
@@ -56,16 +55,16 @@ public class DataAccessConfig {
         return factory.getObject();
     }
 
-    @Bean
+    /*@Bean
     @Profile("default")
     @DependsOn("entityManagerFactory")
     public ResourceDatabasePopulator initDatabase(DataSource dataSource) throws Exception {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScript(new ClassPathResource(env.getRequiredProperty("jdbc.initLocation")));
-        populator.addScript(new ClassPathResource(env.getRequiredProperty("jdbc.dataLocation")));
+        //populator.addScript(new ClassPathResource(env.getRequiredProperty("jdbc.initLocation")));
+        //populator.addScript(new ClassPathResource(env.getRequiredProperty("jdbc.dataLocation")));
         populator.populate(dataSource.getConnection());
         return populator;
-    }
+    }*/
 
     @Bean
     public PlatformTransactionManager transactionManager() {
