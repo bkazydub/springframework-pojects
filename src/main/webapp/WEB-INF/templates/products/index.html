@@ -14,13 +14,13 @@
     <div class="main-container">
 
         <div sec:authorize="!isAuthenticated()" class="alert alert-info">
-            <span class="title">Log as admin</span>
+            <span class="title">Log in as admin</span>
             <ul class="vertical">
                 <li>email: admin@ema.il</li>
                 <li>password: admin</li>
             </ul>
             <br/>
-            <span class="title">Log as customer</span>
+            <span class="title">Log in as customer</span>
             <ul class="vertical">
                 <li>email: my.email@gmail.com</li>
                 <li>password: password</li>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="product-type"
-             th:each="type : ${T(com.shop.springframework.domain.products.Product.Type).values()}">
+             th:each="type : ${T(com.practice.shop.domain.products.Product.Type).values()}">
             <div class="img-wrapper">
                 <!--TODO: to make it smooth! :)-->
                 <a th:href="@{/products/(type=${type.label})}">

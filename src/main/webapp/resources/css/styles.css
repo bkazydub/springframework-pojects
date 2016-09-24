@@ -1,5 +1,3 @@
- /*It's a mess atm*/
-
 html, body {
      height: 100%;
  }
@@ -7,7 +5,6 @@ html, body {
  #wrap {
      min-height: 100%;
      height: auto !important;
-     height: 100%;
      margin: 0 auto -240px;
  }
 
@@ -66,21 +63,18 @@ html, body {
     margin-left: 10%;
 }
 
-/*#headerNav {*/
 nav.horizontal {
     max-width: 40%;
     margin-left: 15%;
     display: inline-block;
 }
 
-/*#headerNav ul {*/
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-/*#headerNav li {*/
 nav.horizontal li {
     float: left;
     margin: 0 5px 0;
@@ -559,6 +553,26 @@ ul.checkout-option, ul.delivery-option {
 
 .bold {
     font-weight: bold;
+}
+
+#customer-info form {
+    width: 50%;
+    margin: auto;
+}
+
+#customer-info .form-element {
+    width: 50%;
+    margin: auto;
+    display: inline-block;
+}
+
+#customer-info label {
+    float: left;
+    text-align: right;
+}
+
+#customer-info input {
+    float: right;
 }
 
 @media only screen and (max-width: 768px) {

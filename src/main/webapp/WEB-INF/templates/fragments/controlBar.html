@@ -12,7 +12,7 @@
                         <li>
                             <a class="btn btn-default" th:href="@{/products}" th:text="#{'navigation.label.all'}">[all]</a>
                         </li>
-                        <li th:each="type : ${T(com.shop.springframework.domain.products.Product.Type).values()}">
+                        <li th:each="type : ${T(com.practice.shop.domain.products.Product.Type).values()}">
                             <a class="btn btn-default"
                                th:href="@{/products(type=${type.label})}" th:text="#{'navigation.label.type.' + ${type}}">[type]</a>
                         </li>

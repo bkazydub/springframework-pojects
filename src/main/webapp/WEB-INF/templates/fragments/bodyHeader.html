@@ -56,7 +56,7 @@
                     <div class="modal-body" id="cartModalBody">Lorem ipsum</div>
                     <div id="cartModalFooter" class="modal-footer">
                         <button type="button" class="btn btn-default left" data-dismiss="modal">Close</button>
-                        <form th:action="@{${#authorization.expression('!isAuthenticated()')} ? '/order/selectMethod' : '/order/accountCheckout'}">
+                        <form th:action="@{not ${#authentication} ? '/order/selectMethod' : '/order/accountCheckout'}">
                             <button type="submit" class="btn btn-success" th:disabled="${cart.numberOfProducts == 0}">Checkout</button>
                         </form>
                     </div>
